@@ -9,20 +9,24 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data = [
-            'level_id' => 2,
-            'username' => 'manager_tiga',
-            'nama' => 'Manager 3',
-            'password' => Hash::make('12345')
-        ];
+        // $data = [
+        //     'level_id' => 2,
+        //     'username' => 'manager_tiga',
+        //     'nama' => 'Manager 3',
+        //     'password' => Hash::make('12345')
+        // ];
 
-        // Tambah data user ke database
-        UserModel::create($data);
+        // // Tambah data user ke database
+        // UserModel::create($data);
 
-        // Ambil semua data user dari tabel m_user
-        $user = UserModel::all();
+        // // Ambil semua data user dari tabel m_user
+        // $user = UserModel::all();
 
-        // Kirim data ke view
-        return view('user', ['data' => $user]);
+        // // Kirim data ke view
+        // return view('user', ['data' => $user]);
+
+
+        $user = UserModel::find(1);
+        return view('user',['data'=> $user]);
     }
 }
