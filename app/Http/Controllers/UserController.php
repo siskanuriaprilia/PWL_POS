@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash; // Tambahkan ini
 
 class UserController extends Controller
 {
@@ -10,7 +11,10 @@ class UserController extends Controller
     {
         // Data yang akan diupdate
         $data = [
-            'nama' => 'Pelanggan Pertama',
+            'level_id' => 2,
+            'username' => 'manager_dua',
+            'nama' => 'Manager 2',
+            'password' => Hash::make('12345') // Hashing password
         ];
 
         // Update data user berdasarkan username
