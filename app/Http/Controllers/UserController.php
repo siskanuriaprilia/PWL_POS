@@ -75,20 +75,53 @@ class UserController extends Controller
         // return view('user', ['data' => $user]);
 
         // Pastikan kolom password terisi dengan benar
-        $user = UserModel::firstOrNew([
-            'username' => 'manager33',
-            'nama' => 'Manager Tiga Tiga',
-            'level_id' => 2
+        // $user = UserModel::firstOrNew([
+        //     'username' => 'manager33',
+        //     'nama' => 'Manager Tiga Tiga',
+        //     'level_id' => 2
+        // ]);
+
+        // // Tambahkan password jika belum ada
+        // if (!$user->exists) {
+        //     $user->password = Hash::make('12345');
+        // }
+
+        // $user->save();
+
+        // // Tampilkan data user untuk memastikan
+
+        $user = UserModel::create([
+            'username' => 'manage55',
+            'nama' => 'Manager55',
+            'password' => Hash::make('12345'),
+            'level_id' => 2,
         ]);
+        
 
-        // Tambahkan password jika belum ada
-        if (!$user->exists) {
-            $user->password = Hash::make('12345');
-        }
-
+        $user->username = 'manager56';
+        
+        // Mengecek apakah ada perubahan data
+        $user->isDirty(); // true
+        $user->isDirty('username'); // true
+        $user->isDirty('nama'); // false
+        $user->isDirty(['nama', 'username']); // true
+        
+        // Mengecek apakah data bersih (tidak ada perubahan)
+        $user->isClean(); // false
+        $user->isClean('username'); // false
+        $user->isClean('nama'); // true
+        $user->isClean(['nama', 'username']); // false
+        
+        // Menyimpan perubahan data ke database
         $user->save();
+        
+        // Mengecek ulang setelah penyimpanan
+        $user->isDirty(); // false
+        $user->isClean(); // true
+        dd($user->isDirty());
 
-        // Tampilkan data user untuk memastikan
-        return view('user', ['data' => $user]);
+        
     }
-}
+}  
+
+   
