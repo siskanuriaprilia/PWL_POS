@@ -299,6 +299,7 @@ return [
     */
 
     'menu' => [
+        
         // Navbar items:
         [
             'type' => 'navbar-search',
@@ -315,6 +316,7 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
+        
         [
             'text' => 'blog',
             'url' => 'admin/blog',
@@ -338,6 +340,8 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
+        
+        
         [
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
@@ -346,6 +350,7 @@ return [
                     'text' => 'level_one',
                     'url' => '#',
                 ],
+                
                 [
                     'text' => 'level_one',
                     'url' => '#',
@@ -375,7 +380,21 @@ return [
                     'url' => '#',
                 ],
             ],
+            [
+            'text' => 'Manage Kategori',
+            'url' => 'kategori',
+            'icon' => 'fas  fa-list',
         ],
+        
+        ],
+        [
+            'text' => 'Manage Kategori',
+            'url' => 'kategori',
+            'icon' => 'fas fa-list',
+            
+        ],
+        
+        
         ['header' => 'labels'],
         [
             'text' => 'important',
@@ -392,6 +411,7 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],
+        
     ],
 
     /*
