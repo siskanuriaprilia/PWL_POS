@@ -13,9 +13,8 @@ class BarangSeeder extends Seeder
      */
     public function run(): void
     {
-        $data=[
+        $data = [
             [
-                'barang_id' => 1,
                 'kategori_id' => 2,
                 'barang_kode' => 'SPORT1',
                 'barang_nama' => 'Onitsuka Pink',
@@ -23,7 +22,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 2500000
             ],
             [
-                'barang_id' => 2,
                 'kategori_id' => 2,
                 'barang_kode' => 'SPORT2',
                 'barang_nama' => 'Kronikel Project',
@@ -31,7 +29,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 550000
             ],
             [
-                'barang_id' => 3,
                 'kategori_id' => 2,
                 'barang_kode' => 'SPORT3',
                 'barang_nama' => 'New Balance 550',
@@ -39,7 +36,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 1800000
             ],
             [
-                'barang_id' => 4,
                 'kategori_id' => 1,
                 'barang_kode' => 'BYT1',
                 'barang_nama' => 'Cushion Wardah Color Fit',
@@ -47,7 +43,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 120000
             ],
             [
-                'barang_id' => 5,
                 'kategori_id' => 1,
                 'barang_kode' => 'BYT2',
                 'barang_nama' => 'Powder Foundation Color Fit',
@@ -55,7 +50,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 130000
             ],
             [
-                'barang_id' => 6,
                 'kategori_id' => 1,
                 'barang_kode' => 'BYT3',
                 'barang_nama' => 'Lip Balm Wardah Grape',
@@ -63,7 +57,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 28000
             ],
             [
-                'barang_id' => 7,
                 'kategori_id' => 3,
                 'barang_kode' => 'FURN1',
                 'barang_nama' => 'Sapu',
@@ -71,7 +64,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 25000
             ],
             [
-                'barang_id' => 8,
                 'kategori_id' => 3,
                 'barang_kode' => 'FURN2',
                 'barang_nama' => 'Bolde Pel',
@@ -79,7 +71,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 35000
             ],
             [
-                'barang_id' => 9,
                 'kategori_id' => 3,
                 'barang_kode' => 'FURN3',
                 'barang_nama' => 'Sulak',
@@ -87,7 +78,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 20000
             ],
             [
-                'barang_id' => 10,
                 'kategori_id' => 4,
                 'barang_kode' => 'TECH1',
                 'barang_nama' => 'USB Cable',
@@ -95,7 +85,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 30000
             ],
             [
-                'barang_id' => 11,
                 'kategori_id' => 4,
                 'barang_kode' => 'TECH2',
                 'barang_nama' => 'Logitech Mouse',
@@ -103,15 +92,13 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 110000
             ],
             [
-                'barang_id' => 12,
                 'kategori_id' => 4,
                 'barang_kode' => 'TECH3',
-                'barang_nama' => 'Toucpen',
+                'barang_nama' => 'Touchpen',
                 'harga_beli' => 120000,
                 'harga_jual' => 130000
             ],
             [
-                'barang_id' => 13,
                 'kategori_id' => 5,
                 'barang_kode' => 'PSKB1',
                 'barang_nama' => 'Pantofel 5 cm',
@@ -119,7 +106,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 55000
             ],
             [
-                'barang_id' => 14,
                 'kategori_id' => 5,
                 'barang_kode' => 'PSKB2',
                 'barang_nama' => 'PDL Paskibraka',
@@ -127,7 +113,6 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 350000
             ],
             [
-                'barang_id' => 15,
                 'kategori_id' => 5,
                 'barang_kode' => 'PSKB3',
                 'barang_nama' => 'Bendera Merah Putih',
@@ -135,6 +120,7 @@ class BarangSeeder extends Seeder
                 'harga_jual' => 1500000
             ]
         ];
+        
         DB::table('m_barang')->insert($data);
     }
 }
