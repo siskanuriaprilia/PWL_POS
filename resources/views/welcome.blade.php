@@ -1,4 +1,99 @@
 @extends('adminlte::page')
+
+@section('title', 'Tambah Level')
+
+@section('content_header')
+    <h1>Form untuk tabel m_level</h1>
+@stop
+
+@section('content')
+    <div class="card">
+        <div class="card-header" style="background-color: #168794; color: white;">
+            <h3 class="card-title">Form untuk tabel m_level</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ url('/level/tambah') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label>Nama Level</label>
+                    <input type="text" name="nama_level" class="form-control" placeholder="Masukkan nama level">
+                </div>
+                <div class="form-group">
+                    <label>Kode Level</label>
+                    <input type="text" name="kode_level" class="form-control" placeholder="Masukkan kode level">
+                </div>
+                <button type="submit" class="btn" style="background-color: #168794; color: white;">Submit</button>
+            </form>
+        </div>
+    </div>
+@stop
+
+@section('css')
+    {{-- Tambahkan CSS tambahan jika diperlukan --}}
+@stop
+
+@section('js')
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+@stop
+
+
+@extends('adminlte::page')
+
+@section('title', 'Tambah User')
+
+@section('content_header')
+    <h1>Form untuk tabel m_user</h1>
+@stop
+
+@section('content')
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title">Form untuk tabel m_user</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ url('/user/tambah') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="Masukkan username">
+                </div>
+                <div class="form-group">
+                    <label>Nama</label>
+                    <input type="text" name="nama" class="form-control" placeholder="Masukkan nama">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Masukkan password">
+                </div>
+                <div class="form-group">
+                    <label>Level</label>
+                    <select name="level" class="form-control">
+                        <option>Administrator</option>
+                        <option>Editor</option>
+                        <option>User</option>
+                    </select>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="terms">
+                    <label class="form-check-label" for="terms">I agree to the <a href="#">terms of service</a>.</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+@stop
+
+@section('css')
+    {{-- Tambahkan CSS tambahan di sini jika diperlukan --}}
+@stop
+
+@section('js')
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+@stop
+
+
+
+{{-- @extends('adminlte::page')
 @section('title', 'Dashboard') @section('content_header')
 <h1>Dashboard</h1> @stop
 
@@ -15,7 +110,10 @@
 </div>
 <button type = "submit" class ="btn btn-info">Submit </button>
 </div>
-@stop
+@stop --}}
+
+
+
 
 
 {{-- <!DOCTYPE html> --}}
