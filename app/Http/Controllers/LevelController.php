@@ -4,22 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreLevelRequest;
 
 class LevelController extends Controller
 {
     public function index()
     {
-        //DB::insert('insert into m_level (level_kode, level_nama, created_at) values (?, ?, ?)', ['cus', 'pelanggan', now()]);
-        //return 'Insert data baru berhasil';
-        
-        // $row = DB::update('update m_level set level_nama = ? where level_kode = ?', ['Customer', 'CUS']);
-        // return 'Update data berhasil. Jumlah data yang diupdate: '.$row. ' baris';
+        $data = DB::select('SELECT * FROM m_level');
+        return view('level', ['data' => $data]);
+    }
 
-        //$row = DB::delete('delete from m_level where level_kode = ?', ['CUS']);
-        //return 'Delete data berhasil. Jumlah data yang dihapus: '.$row. ' baris';
+    public function create()
+{
+    return view('level.tambah');
+}
 
-        $data = DB::select('select * from m_level');
-        return view('level', ['data' => $data]); 
 
+    public function store(StoreLevelRequest $request)
+    {
+        DB::insert('INSERT INTO m_level (level_kode, level_nama, created_at) VALUES (?, ?, ?)', [
+            $request->level_kode,
+            $request->level_nama,
+            now()
+        ]);
+
+        return redirect('/level')->with('success', 'Level berhasil ditambahkan!');
     }
 }
