@@ -1,8 +1,7 @@
 @extends('adminlte::page')
 {{-- Extend and customize the browser title --}} @section('title')
 {{ config('adminlte.title') }} @hasSection('subtitle') | @yield('subtitle') @endif
-@vite(["resources/js/app.js"])
-
+@stop @vite('resources/js/app.js')
 {{-- Extend and customize the page content header --}}
 
 @section('content_header') @hasSection('content_header_title')
@@ -42,18 +41,16 @@
     @stack('scripts')
     
     {{-- Add common CSS customizations --}} @push('css')
-    <link 
-    href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
-
+<link href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" rel="stylesheet" />
 <style type="text/css">
-
-{{-- You can add AdminLTE customizations here --}}
-/*
-.card-header {
-border-bottom: none;
-}
-.card-title {
-font-weight: 600;
-}
-*/
-</style> @endpush
+    {{-- You can add AdminLTE customizations here --}}
+    /*
+    .card-header {
+        border-bottom: none;
+    }
+    .card-title {
+        font-weight: 600;
+    }
+    */
+</style>
+@endpush
