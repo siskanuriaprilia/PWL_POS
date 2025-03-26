@@ -2,18 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class LevelModel extends Model
 {
-    use HasFactory;
+    protected $table = 'm_level'; // Nama tabel di database
+    protected $primaryKey = 'level_id'; // Primary key yang benar
+    public $timestamps = false; // Matikan timestamps jika tidak digunakan
 
-    protected $table = 'm_level'; //mendefinisikan nama tabel yang digunakan oleh model ini 
-    protected $primaryKey = 'level_id'; //mendefinisikan primary key dari tabel yang digunakan
+    protected $fillable = ['level_nama', 'level_kode']; // Tambahkan level_kode jika diperlukan
+
     /**
-     * The attributes that are mass assignable
-     * @var array
+     * Relasi ke UserModel (satu level bisa memiliki banyak user).
      */
-    protected $fillable = ['level_name'];
+    public function users(): HasMany
+    {
+        return $this->hasMany(UserModel::class, 'level_id', 'level_id'); 
+        // level_id ada di tabel users sebagai foreign key
+    }
 }

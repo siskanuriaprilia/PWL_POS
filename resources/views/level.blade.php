@@ -13,6 +13,8 @@
                 </div>
             @endif
 
+            <a href="{{ url('/level/tambah') }}" class="btn btn-primary mb-3">Tambah Level</a>
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -29,23 +31,14 @@
                         <td>{{ $level->level_kode }}</td>
                         <td>{{ $level->level_nama }}</td>
                         <td>
-                            <a href="{{ url('/level/ubah/'.$level->level_id) }}" class="btn btn-warning btn-sm d-inline-flex align-items-center">
-                                <i class="fas fa-edit"></i>&nbsp; Edit
-                            </a>
-                            <a href="{{ url('/level/hapus/'.$level->level_id) }}" class="btn btn-danger btn-sm d-inline-flex align-items-center" onclick="return confirm('Yakin ingin menghapus?')">
-                                <i class="fas fa-trash"></i>&nbsp; Delete
-                            </a>
+                            <a href="{{ url('/level/ubah/'.$level->level_id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ url('/level/hapus/'.$level->level_id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-<!-- Tombol Tambah User di bagian bawah kanan -->
-<div class="card-footer d-flex justify-content-end">
-    <a href="{{ url('/level/tambah') }}" class="btn btn-success">
-        <i class="fas fa-plus"></i> Tambah Level
-    </a>
+    </div>
 </div>
-
 @endsection
