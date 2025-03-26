@@ -98,4 +98,27 @@ public function store(Request $request)
 
     return redirect('/user')->with('success', 'Data user berhasil disimpan');
 }
+      // Menampilkan detail user
+public function show(string $id)
+{
+    $user = UserModel::with('level')->find($id);
+
+    $breadcrumb = (object) [
+        'title' => 'Detail User',
+        'list'  => ['Home', 'User', 'Detail']
+    ];
+
+    $page = (object) [
+        'title' => 'Detail User'
+    ];
+
+    $activeMenu = 'user'; // set menu yang sedang aktif
+
+    return view('user.show', [
+        'breadcrumb' => $breadcrumb,
+        'page'       => $page,
+        'user'       => $user,
+        'activeMenu' => $activeMenu
+    ]);
+}
 }
