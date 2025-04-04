@@ -3,9 +3,10 @@
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">Daftar Kategori</h3>
+            <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('kategori/create') }}">Tambah Kategori Barang</a>
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('kategori/create') }}">Tambah</a>
+                <button onclick="modalAction('{{ url('kategori/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
             </div>
         </div>
         <div class="card-body">
@@ -23,9 +24,6 @@
                         <div class="col-3">
                             <select class="form-control" id="kategori_id" name="kategori_id" required>
                                 <option value="">- Semua -</option>
-                                @foreach($kategori as $item)
-                                    <option value="{{ $item->kategori_id }}">{{ $item->kategori_nama }}</option>
-                                @endforeach
                             </select>
                             <small class="form-text text-muted">Kategori Barang</small>
                         </div>
@@ -36,7 +34,7 @@
             <table class="table table-bordered table-striped table-hover table-sm" id="table_kategori">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th>ID</th>
                         <th>Kode Kategori</th>
                         <th>Nama Kategori</th>
                         <th>Aksi</th>
@@ -44,59 +42,37 @@
                 </thead>
             </table>
         </div>
-    @endsection
-
-    @push('css') 
-    <!-- Bisa ditambahkan CSS jika diperlukan -->
-    @endpush
-
-    @push('js')
-    <script>
-        $(document).ready(function() {
-            var dataKategori = $('#table_kategori').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    "url": "{{ url('kategori/list') }}", 
-                    "type": "POST",
-                    "dataType": "json",
-                    "data": function (d) {
-                        d.kategori_id = $('#kategori_id').val() || '';
-                    }
-                },
-                columns: [
-                    { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
-                    { data: "kategori_kode", className: "", orderable: true, searchable: true },
-                    { data: "kategori_nama", className: "", orderable: true, searchable: true },
-                    { data: "aksi", className: "text-center", orderable: false, searchable: false }
-                ]
-            });
-            $('#kategori_id').on('change', function(){
-                dataKategori.ajax.reload();
-            });
-        });
-    </script> 
-    @endpush
-{{--@extends('layout.app')
-
-{{-- Customize layout sections --}}
-{{--@section('subtitle', 'Kategori')--}}
-{{--@section('content_header_title', 'Home')
-@section('content_header_subtitle', 'Kategori')
-
-@section('content')
-    <div class="container">
-        <div class="card">
-            <div class="card-header">Manage Kategori</div>
-            <div class="card-body">
-                <a href="{{ url('/kategori/create')}}" class="btn btn-success">Add</a>
-                <br><br>
-                {{ $dataTable->table() }}
-            </div>
-        </div>
+        <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
     </div>
 @endsection
 
-@push('scripts')
-    {{ $dataTable->scripts() }}
-@endpush--}}
+@push('css')
+@endpush
+
+@push('js')
+<script>
+    function modalAction(url = '') {
+        $('#myModal').load(url, function(){
+            $('#myModal').modal('show');
+        });
+    }
+
+    var dataKategori;
+    $(document).ready(function() {
+        dataKategori = $('#table_kategori').DataTable({
+            serverSide: true,
+            ajax: {
+                "url": "{{ url('kategori/list') }}",
+                "dataType": "json",
+                "type": "POST"
+            },
+            columns: [
+                { data: "DT_RowIndex", className: "text-center", orderable: false, searchable: false },
+                { data: "kategori_kode", className: "", orderable: true, searchable: true },
+                { data: "kategori_nama", className: "", orderable: true, searchable: true },
+                { data: "aksi", className: "text-center", orderable: false, searchable: false }
+            ]
+        });
+    });
+</script>
+@endpush
