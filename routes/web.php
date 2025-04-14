@@ -1,22 +1,23 @@
 <?php
 
+use App\Http\Controllers\LevelController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\POSController;
+use App\Http\Controllers\WelcomeController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\BarangController;
-use App\Http\Controllers\KategoriController;
-use App\Http\Controllers\LevelController;
-use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Route;
 
-Route::pattern('id', '[0-9]+'); // Pastikan parameter {id} hanya berupa angka
+Route::pattern('id', '[0-9]+');
 
-// Rute otentikasi
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::post('login', [AuthController::class, 'postlogin']);
-Route::get('/register', [AuthController::class, 'register']);
-Route::post('/register', [AuthController::class, 'postRegister']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+Route::get('login', [AuthController::class, 'login'])->name('login'); // menampilkan halaman login
+Route::post('login', [AuthController::class, 'postlogin']); // proses login
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth'); // proses logout
+Route::get('/register', [AuthController::class, 'register'])->name('register.form');
+Route::post('/register', [AuthController::class, 'store_user'])->name('register.store');
+
 Route::middleware('auth')->group(function () {
    
     Route::get('/', [WelcomeController::class, 'index']);
@@ -72,7 +73,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [KategoriController::class, 'destroy']);
     });
     
-        Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function (){
+        Route::middleware(['authorize:ADM, MNG'])->prefix('supplier')->group(function (){
         Route::get('/', [SupplierController::class, 'index']);
         Route::post('/list', [SupplierController::class, 'list']);
         Route::get('/create', [SupplierController::class, 'create']);
@@ -89,7 +90,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [SupplierController::class, 'destroy']);
     });
     
-        Route::middleware(['authorize:ADM,MNG'])->prefix('barang')->group(function (){
+        Route::middleware(['authorize:ADM, MNG'])->prefix('barang')->group(function (){
         Route::get('/', [BarangController::class, 'index']);
         Route::post('/list', [BarangController::class, 'list']);
         Route::get('/create', [BarangController::class, 'create']);

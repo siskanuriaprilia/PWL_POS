@@ -75,7 +75,7 @@
                      <div class="input-group mb-3">
                          <select id="level_id" name="level_id" class="form-control" required>
                              <option value="">Select Level</option>
-                             @foreach ($levels as $level)
+                             @foreach ($level as $level)
                                  <option value="{{ $level->level_id }}">{{ $level->level_nama }}</option>
                              @endforeach
                          </select>
