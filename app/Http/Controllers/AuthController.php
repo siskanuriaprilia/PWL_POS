@@ -2,47 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LevelModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class AuthController extends Controller
 {
     public function login()
     {
-        if(Auth::check()){ // jika sudah login, maka redirect ke halaman home
+        // Jika sudah login, redirect ke halaman home
+        if (Auth::check()) {
             return redirect('/');
         }
+
         return view('auth.login');
     }
 
     public function postlogin(Request $request)
     {
-        if($request->ajax() || $request->wantsJson()){
-            $credentials = $request->only('username', 'password');
-
-            if (Auth::attempt($credentials)) {
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Login Berhasil',
-                    'redirect' => url('/')
-                ]);
-            }
-            
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => 'Login Gagal'
+                'message' => 'Validasi gagal!',
+                'msgField' => $validator->errors(),
             ]);
         }
-
-        return redirect('login');
+    
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Login berhasil!',
+                'redirect' => url('/'), // arahkan ke dashboard atau halaman utama
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Username atau password salah!',
+                'msgField' => [
+                    'username' => ['Periksa kembali username Anda.'],
+                    'password' => ['Periksa kembali password Anda.'],
+                ]
+            ]);
+        }
     }
-
     public function logout(Request $request)
-    {
-        Auth::logout();
+{
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();    
-        return redirect('login');
-    }
+    return redirect('/login'); // Atau arahkan ke halaman lain setelah logout
 }
+
+}   
