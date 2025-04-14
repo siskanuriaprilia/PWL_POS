@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorizeUser;
 
 Route::pattern('id','[0-9]+'); // artinya ketika ada parameter {id}, maka harus berupa angka
 
@@ -55,7 +56,7 @@ Route::group(['prefix' => 'kategori'], function () {
     Route::delete('/{id}', [KategoriController::class, 'destroy']);
 });
 
-Route::group(['prefix' => 'level'], function () {
+Route::middleware(['authorize:ADM'])->group(function(){
     Route::get('/', [LevelController::class, 'index']);       // menampilkan halaman awal level
     Route::post('/list', [LevelController::class, 'list']);    // menampilkan data level dalam bentuk json untuk datatables
     Route::get('/create', [LevelController::class, 'create']);// menampilkan halaman form tambah level
