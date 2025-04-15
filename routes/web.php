@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);// menampilkan halaman form confirm delete user ajax
         Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']);  // untuk hapus data user ajax
         Route::delete('/{id}', [UserController::class, 'destroy']);// menghapus data user
+        Route::get('/import', [UserController::class, 'import']);
+        Route::post('/import_ajax', [UserController::class, 'import_ajax']);
     });
     
         Route::middleware(['authorize:ADM'])->prefix('level')->group(function (){
@@ -54,7 +56,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);// menampilkan halaman form edit level
         Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);  // menyimpan perubahan data level
         Route::delete('/{id}', [LevelController::class, 'destroy']);// menghapus data level
-    });
+        Route::get('/import', [LevelController::class, 'import']);
+        Route::post('/import_ajax', [LevelController::class, 'import_ajax']);
+        });
     
         Route::middleware(['authorize:ADM'])->prefix('kategori')->group(function (){
         Route::get('/', [KategoriController::class, 'index']);
@@ -71,6 +75,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/delete_ajax', [KategoriController::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);
         Route::delete('/{id}', [KategoriController::class, 'destroy']);
+        Route::get('/import', [KategoriController::class, 'import']);
+        Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);
     });
     
         Route::middleware(['authorize:ADM, MNG'])->prefix('supplier')->group(function (){
@@ -88,6 +94,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
         Route::delete('/{id}', [SupplierController::class, 'destroy']);
+        Route::get('/import', [SupplierController::class, 'import']);
+        Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);
     });
     
         Route::middleware(['authorize:ADM, MNG'])->prefix('barang')->group(function (){
@@ -105,6 +113,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
         Route::delete('/{id}', [BarangController::class, 'destroy']);
+        Route::get('/import', [BarangController::class, 'import']);
+        Route::post('/import_ajax', [BarangController::class, 'import_ajax']);
     });
 
 });    
