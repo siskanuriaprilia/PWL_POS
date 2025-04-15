@@ -363,9 +363,9 @@ class LevelController extends Controller
          $levels = LevelModel::select('level_id', 'level_kode', 'level_nama')->orderBy('level_id')->get();
  
          // Load library PhpSpreadsheet
-         $spreadsheet = new Spreadsheet();
-         $sheet = $spreadsheet->getActiveSheet();
- 
+         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+         $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
+
          // Set header kolom
          $sheet->setCellValue('A1', 'No');
          $sheet->setCellValue('B1', 'ID Level');
@@ -413,20 +413,5 @@ class LevelController extends Controller
     }
 
 
-    public function export_pdf()
-    {
-        set_time_limit(0); // set waktu eksekusi tidak terbatas
-
-        $level = LevelModel::select('level_id', 'level_kode', 'level_nama')
-            ->orderBy('level_id')
-            ->get();
-
-        // use Barryvdh\DomPDF\Facade\Pdf;
-        $pdf = Pdf::loadView('level.export_pdf', ['level' => $level]);
-        $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
-        $pdf->setOption("isRemoteEnabled", true); // set true jika ada gambar dari url
-        $pdf->render();
-
-        return $pdf->stream('Data Level ' . date('Y-m-d H:i:s') . '.pdf');
-    }
+   
 }
