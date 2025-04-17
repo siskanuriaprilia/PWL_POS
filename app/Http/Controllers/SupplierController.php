@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Barryvdh\DomPDF\Facade\Pdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 
 class SupplierController extends Controller
 {
@@ -336,7 +338,7 @@ class SupplierController extends Controller
                 ->get();
 
             // Load library PhpSpreadsheet
-            $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+            $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
 
             // Set header kolom
@@ -386,6 +388,20 @@ class SupplierController extends Controller
             $writer->save('php://output');
             exit;
         }
+        public function export_pdf()
+     {
+         $supplier = SupplierModel::select('supplier_kode','supplier_nama', 'supplier_alamat', 'supplier_telp')
+             ->get();
+ 
+         // use Barryvdh\DomPDF\Facade\Pdf;
+         $pdf = Pdf::loadView('supplier.export_pdf', ['supplier' => $supplier]);
+         $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
+        
+         $pdf->render();
+ 
+         return $pdf->stream('Data Supplier ' . date('Y-m-d H:i:s') . '.pdf');
+     }
+
+}
     
        
-}

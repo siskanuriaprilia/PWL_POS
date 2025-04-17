@@ -17,10 +17,14 @@ Route::post('login', [AuthController::class, 'postlogin']); // proses login
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth'); // proses logout
 Route::get('/register', [AuthController::class, 'register'])->name('register.form');
 Route::post('/register', [AuthController::class, 'store_user'])->name('register.store');
+// Rute untuk menampilkan profil pengguna
+Route::get('profile', [AuthController::class, 'profile'])->middleware('auth')->name('profile');
+  Route::post('profile/update', [AuthController::class, 'update'])->middleware('auth');
 
 Route::middleware('auth')->group(function () {
    
     Route::get('/', [WelcomeController::class, 'index']);
+   
     
         Route::middleware(['authorize:ADM'])->prefix('user')->group(function (){
         Route::get('/', [UserController::class, 'index']);       // menampilkan halaman awal user
@@ -40,7 +44,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/import', [UserController::class, 'import']);
         Route::post('/import_ajax', [UserController::class, 'import_ajax']);
         Route::get('/export_excel', [UserController::class, 'export_excel']); //export excel
+        Route::get('/export_pdf', [UserController::class, 'export_pdf']); //export pdf
     });
+    
     
         Route::middleware(['authorize:ADM'])->prefix('level')->group(function (){
         Route::get('/', [LevelController::class, 'index']);       // menampilkan halaman awal level
@@ -60,8 +66,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/import', [LevelController::class, 'import']);
         Route::post('/import_ajax', [LevelController::class, 'import_ajax']);
         Route::get('/export_excel', [LevelController::class, 'export_excel']); //export excel
-        });
-    
+        Route::get('/export_pdf', [LevelController::class, 'export_pdf']); //export pdf
+    });
+        
         Route::middleware(['authorize:ADM'])->prefix('kategori')->group(function (){
         Route::get('/', [KategoriController::class, 'index']);
         Route::post('/list', [KategoriController::class, 'list']);
@@ -80,6 +87,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/import', [KategoriController::class, 'import']);
         Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);
         Route::get('/export_excel', [KategoriController::class, 'export_excel']); //export excel
+        Route::get('/export_pdf', [KategoriController::class, 'export_pdf']); //export pdf
     });
     
         Route::middleware(['authorize:ADM, MNG'])->prefix('supplier')->group(function (){
@@ -100,6 +108,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/import', [SupplierController::class, 'import']);
         Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);
         Route::get('/export_excel', [SupplierController::class, 'export_excel']); //export excel
+        Route::get('/export_pdf', [SupplierController::class, 'export_pdf']); //export pdf
     });
     
         Route::middleware(['authorize:ADM, MNG'])->prefix('barang')->group(function (){
@@ -120,6 +129,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/import', [BarangController::class, 'import']);
         Route::post('/import_ajax', [BarangController::class, 'import_ajax']);
         Route::get('/export_excel', [BarangController::class, 'export_excel']); //export excel
+        Route::get('/export_pdf', [BarangController::class, 'export_pdf']); //export pdf
     });
 
 });    

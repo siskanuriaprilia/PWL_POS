@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yajra\DataTables\Facades\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class BarangController extends Controller
 {
@@ -238,7 +240,7 @@ class BarangController extends Controller
   
           // Load library PhpSpreadsheet
           // load library excel
-            $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+            $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
 
             
@@ -291,4 +293,21 @@ class BarangController extends Controller
           $writer->save('php://output');
           exit;
       }
-    }
+       // Export PDF
+       public function export_pdf()
+       {
+           $barang = BarangModel::select('kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
+               ->orderBy('kategori_id')
+               ->orderBy('barang_kode')
+               ->with(['kategori'])
+               ->get();
+   
+           // use Barryvdh\DomPDF\Facade\Pdf;
+           $pdf = Pdf::loadView('barang.export_pdf', ['barang' => $barang]);
+
+           $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
+           return $pdf->download('Data_Barang_' . date('Y-m-d_H-i-s') . '.pdf');
+       }
+}
+
+    

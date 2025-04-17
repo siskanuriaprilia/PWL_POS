@@ -363,7 +363,7 @@ class LevelController extends Controller
          $levels = LevelModel::select('level_id', 'level_kode', 'level_nama')->orderBy('level_id')->get();
  
          // Load library PhpSpreadsheet
-         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+         $spreadsheet = new Spreadsheet();
          $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
 
          // Set header kolom
@@ -411,7 +411,18 @@ class LevelController extends Controller
          $writer->save('php://output');
          exit;
     }
+    public function export_pdf()
+     {
+         $level = LevelModel::select('level_kode', 'level_nama')
+             ->get();
+ 
+         // use Barryvdh\DomPDF\Facade\Pdf;
+         $pdf = Pdf::loadView('level.export_pdf', ['level' => $level]);
+
+         $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
+         return $pdf->download('Data_Level_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
+}
 
 
    
-}
