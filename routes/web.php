@@ -10,13 +10,16 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\Request;
+
+
 Route::pattern('id', '[0-9]+');
 
 Route::get('login', [AuthController::class, 'login'])->name('login'); // menampilkan halaman login
 Route::post('login', [AuthController::class, 'postlogin']); // proses login
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth'); // proses logout
-Route::get('/register', [AuthController::class, 'register'])->name('register.form');
-Route::post('/register', [AuthController::class, 'store_user'])->name('register.store');
+//Route::get('/register', [AuthController::class, 'register'])->name('register.form');
+//Route::post('/register', [AuthController::class, 'store_user'])->name('register.store');
 // Rute untuk menampilkan profil pengguna
 Route::get('profile', [AuthController::class, 'profile'])->middleware('auth')->name('profile');
   Route::post('profile/update', [AuthController::class, 'update'])->middleware('auth');
