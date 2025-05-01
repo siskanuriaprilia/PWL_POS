@@ -94,7 +94,7 @@ Route::middleware('auth')->group(function () {
     });
     
         Route::middleware(['authorize:ADM, MNG'])->prefix('supplier')->group(function (){
-        Route::get('/', [SupplierController::class, 'index']);
+        //Route::get('/', [SupplierController::class, 'index']);
         Route::post('/list', [SupplierController::class, 'list']);
         Route::get('/create', [SupplierController::class, 'create']);
         Route::post('/', [SupplierController::class, 'store']);
