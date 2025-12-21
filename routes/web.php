@@ -134,5 +134,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/export_excel', [BarangController::class, 'export_excel']); //export excel
         Route::get('/export_pdf', [BarangController::class, 'export_pdf']); //export pdf
     });
+    // Tambahkan route stok
+Route::middleware(['authorize:ADM,MNG,STF'])->prefix('stok')->group(function () {
+    Route::get('/', [StokController::class, 'index'])->name('stok.index');
+    Route::post('/list', [StokController::class, 'list'])->name('stok.list');
+    
+    // Update stok
+    Route::get('/{id}/update', [StokController::class, 'updateForm'])->name('stok.update.form');
+    Route::post('/{id}/update', [StokController::class, 'update'])->name('stok.update');
+    
+    // History
+    Route::get('/{id}/history', [StokController::class, 'history'])->name('stok.history');
+    Route::get('/history-all', [StokController::class, 'historyAll'])->name('stok.history.all');
+});
 
 });    

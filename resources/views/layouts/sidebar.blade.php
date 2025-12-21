@@ -86,6 +86,13 @@
                     <p>Transaksi Penjualan</p>
                 </a>
             </li>
+            <!-- Tambahkan menu Stok di sidebar -->
+<li class="nav-item {{ $activeMenu == 'stok' ? 'active' : '' }}">
+    <a href="{{ url('/stok') }}" class="nav-link">
+        <i class="nav-icon fas fa-boxes"></i>
+        <p>Manajemen Stok</p>
+    </a>
+</li>
 
         <li class="nav-header">Akun</li>
 
