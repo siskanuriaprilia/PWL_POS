@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        if (Auth::check()) { // jika sudah login, maka redirect ke halaman home
+        if (Auth::check()) { 
             return redirect('/');
         }
         return view('auth.login');
@@ -70,7 +70,7 @@ class AuthController extends Controller
          UserModel::create([
              'username' => $request->username,
              'nama'     => $request->nama,
-             'password' => bcrypt($request->password), // Enkripsi password
+             'password' => bcrypt($request->password), 
              'level_id' => $request->level_id,
          ]);
      

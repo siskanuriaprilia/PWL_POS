@@ -1,5 +1,5 @@
 @empty($barang)
-    <div id="modal-master" class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
@@ -44,35 +44,54 @@
     </div>
     </form>
     <script>
-        $(document).ready(function() {
-            $("#form-delete").validate({
-                rules: {},
-                submitHandler: function(form) {
-                    $.ajax({
-                        url: form.action,
-                        type: form.method,
-                        data: $(form).serialize(),
-                        success: function(response) {
-                            if(response.status){
-                                $('#myModal').modal('hide');
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Berhasil',
-                                    text: response.message
-                                });
-                                dataBarang.ajax.reload();
-                            }else{
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Terjadi Kesalahan',
-                                    text: response.message
-                                });
-                            }
-                        }            
+       $(document).ready(function() {
+    $("#form-delete").validate({
+        rules: {},
+        submitHandler: function(form) {
+            var submitBtn = $(form).find('button[type="submit"]');
+            var originalText = submitBtn.html();
+            
+            submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-1"></i> Menghapus...');
+            
+            $.ajax({
+                url: form.action,
+                type: 'DELETE',
+                data: $(form).serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if(response.status){
+                        $('#myModal').modal('hide');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: response.message || 'Data berhasil dihapus',
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            tableBarang.ajax.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: response.message || 'Terjadi kesalahan'
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Terjadi kesalahan pada server'
                     });
-                    return false;
+                },
+                complete: function() {
+                    submitBtn.prop('disabled', false).html(originalText);
                 }
             });
-        });
-    </script>
-@endempty
+            return false;
+        }
+    });
+});

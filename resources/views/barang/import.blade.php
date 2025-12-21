@@ -32,16 +32,16 @@
                 file_barang: {required: true, extension: "xlsx"},
             },
             submitHandler: function(form) { 
-                var formData = new FormData(form);  // Jadikan form ke FormData untuk menghandle file
+                var formData = new FormData(form);  
 
                 $.ajax({
                     url: form.action,
                     type: form.method,
-                    data: formData,     // Data yang dikirim berupa FormData
-                    processData: false, // setting processData dan contentType ke false, untuk menghandle file
+                    data: formData,     
+                    processData: false, 
                     contentType: false,
                     success: function(response) {
-                        if(response.status){ // jika sukses
+                        if(response.status){ 
                             $('#myModal').modal('hide');
                             Swal.fire({
                                 icon: 'success',

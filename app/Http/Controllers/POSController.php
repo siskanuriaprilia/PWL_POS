@@ -75,12 +75,11 @@ class POSController extends Controller
             'password' => 'required',
             ]);
             //fungsi eloquent untuk mengupdate data inputan kita
-m_user::find($id)->update($request->all());
-//jika data berhasil diupdate, akan kembali ke halaman utama
-return redirect()->route('m_user.index')
-->with('success', 'Data Berhasil Diupdate');
-    }
-
+            m_user::find($id)->update($request->all());
+            
+            return redirect()->route('m_user.index')
+            ->with('success', 'Data Berhasil Diupdate');
+                }
     /**
      * Remove the specified resource from storage.
      */

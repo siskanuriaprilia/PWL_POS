@@ -76,20 +76,16 @@
  
  <body>
      <table class="border-bottom-header">
-        <td width="15%" class="text-center">
-            <img src="{{ public_path('image/logo_polinema.png') }}" class="image">
-        </td>
-             <td width="85%">
-                 <span class="text-center d-block font-11 font-bold mb-1">KEMENTERIAN
-                     PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</span>
-                 <span class="text-center d-block font-13 font-bold mb-1">POLITEKNIK NEGERI
-                     MALANG</span>
-                 <span class="text-center d-block font-10">Jl. Soekarno-Hatta No. 9 Malang
-                     65141</span>
-                 <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101-
-                     105, 0341-404420, Fax. (0341) 404420</span>
-                 <span class="text-center d-block font-10">Laman: www.polinema.ac.id</span>
-             </td>
+              <td width="15%" class="text-center">
+                <img src="{{ public_path('image/IconIndoprima.png') }}" class="image">
+            </td>
+              <td width="85%">
+                <span class="text-center d-block font-11 font-bold">PT.INDOPRIMA GEMILANG</span>
+                <span class="text-center d-block font-10">Jl. Margomulyo Komp. Gardu Induk PLN Margomulyo No.5,</span>
+                <span class="text-center d-block font-10">Tandes Kidul, Kec. Tandes, Surabaya, Jawa Timur 60187</span>
+                <span class="text-center d-block font-10">Telepon: (031) 2977777</span>
+                <span class="text-center d-block font-10">Laman: www.indoprima.id</span>
+            </td>
          </tr>
      </table>
      <h3 class="text-center">LAPORAN DATA USER</h4>

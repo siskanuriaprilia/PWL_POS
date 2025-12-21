@@ -3,15 +3,36 @@
 @section('content')
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">{{ $page->title }}</h3>
+            <h3 class="card-title">Daftar Kategori</h3>
             <div class="card-tools">
                 <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-info">Import data Kategori</button>
-                <a href="{{ url('/kategori/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i> Export Data Kategori</a>
-                <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i> Export Data Kategori</a>
-                <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success">Tambah Ajax</button>
+                <a href="{{ url('/kategori/export_excel') }}" class="btn btn-primary"></i> Export Excel</a>
+                <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning"></i> Export Pdf</a>
+                <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success">Tambah Data Kategori</button>
             </div>
         </div>
+        
+        <!-- Filter data -->
         <div class="card-body">
+            <div id="filter" class="form-horizontal filter-date p-2 border-bottom mb-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group form-group-sm row text-sm mb-0">
+                            <label for="filter_date" class="col-md-1 col-form-label">Filter:</label>
+                            <div class="col-md-3">
+                                <select name="filter_kategori" id="filter_kategori" class="form-control form-control-sm filter_kategori">
+                                    <option value="">- Semua Kategori -</option>
+                                    @foreach($kategori as $l)
+                                        <option value="{{ $l->kategori_id }}">{{ $l->kategori_nama }}</option>
+                                    @endforeach
+                                </select>
+                                <small class="form-text text-muted">Kategori Barang</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
@@ -43,17 +64,19 @@
                 $('#myModal').modal('show');
             });
         }
+        
         var dataUser;
         $(document).ready(function() {
             dataUser = $('#table_kategori').DataTable({
                 processing: true,
-                serverSide: true, // Jika ingin menggunakan server-side processing
+                serverSide: true,
                 ajax: {
                     "url": "{{ url('kategori/list') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data": function(d) {
-                        d.level_id = $('#level_id').val();
+                        d.filter_kategori = $('#filter_kategori').val();
+                        d.filter_stok = $('#filter_stok').val();
                     }
                 },
                 columns: [{
@@ -61,7 +84,7 @@
                         className: "text-center",
                         orderable: false,
                         searchable: false
-                    }, // Kolom nomor urut
+                    },
                     {
                         data: "kategori_kode",
                         className: "",
@@ -79,8 +102,14 @@
                         className: "",
                         orderable: false,
                         searchable: false
-                    } // Tombol aksi
+                    }
                 ]
+            });
+            $('#filter_kategori').on('change', function() {
+                dataUser.ajax.reload(); 
+            });
+            $('#filter_stok').on('change', function() {
+                dataUser.ajax.reload(); 
             });
         });
     </script>

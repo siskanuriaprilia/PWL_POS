@@ -60,16 +60,8 @@ class LevelController extends Controller
         }
 
         return DataTables::of($levels)
-            ->addIndexColumn() // menambahkan kolom index
+            ->addIndexColumn() 
             ->addColumn('aksi', function ($level) {
-                // menambahkan kolom aksi
-                // $btn = '<a href="' . url('/level/' . $level->level_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-                // $btn .= '<a href="' . url('/level/' . $level->level_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                // $btn .= '<form class="d-inline-block" method="POST" action="' . url('/level/' . $level->level_id) . '">'
-                //     . csrf_field() . method_field('DELETE') .
-                //     '<button type="submit" class="btn btn-danger btn-sm"
-                //     onclick="return confirm(\'Apakah Anda yakit menghapus data
-                //     ini?\');">Hapus</button></form>';
                 $btn = '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
 
                 $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
@@ -77,7 +69,7 @@ class LevelController extends Controller
                 $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })
-            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
+            ->rawColumns(['aksi']) 
             ->make(true);
     }
     
@@ -329,7 +321,7 @@ class LevelController extends Controller
              $insert = [];
              if (count($data) > 1) {
                  foreach ($data as $baris => $value) {
-                     if ($baris > 1) { // baris ke 1 adalah header
+                     if ($baris > 1) { 
                          $insert[] = [
                              'level_id' => $value['A'],
                              'level_kode' => $value['B'],
@@ -359,23 +351,15 @@ class LevelController extends Controller
 
     public function export_excel()
     {
-         // Ambil data level yang akan diekspor
-         $levels = LevelModel::select('level_id', 'level_kode', 'level_nama')->orderBy('level_id')->get();
- 
-         // Load library PhpSpreadsheet
-         $spreadsheet = new Spreadsheet();
-         $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
 
-         // Set header kolom
+         $levels = LevelModel::select('level_id', 'level_kode', 'level_nama')->orderBy('level_id')->get();
+         $spreadsheet = new Spreadsheet();
+         $sheet = $spreadsheet->getActiveSheet(); 
          $sheet->setCellValue('A1', 'No');
          $sheet->setCellValue('B1', 'ID Level');
          $sheet->setCellValue('C1', 'Kode Level');
          $sheet->setCellValue('D1', 'Nama Level');
- 
-         // Format header bold
          $sheet->getStyle('A1:D1')->getFont()->setBold(true);
- 
-         // Isi data level
          $no = 1;
          $baris = 2;
          foreach ($levels as $level) {
@@ -387,18 +371,12 @@ class LevelController extends Controller
              $no++;
          }
  
-         // Set auto size untuk kolom
          foreach (range('A', 'D') as $columnID) {
              $sheet->getColumnDimension($columnID)->setAutoSize(true);
          }
- 
-         // Set title sheet
          $sheet->setTitle('Data Level');
-         
-         // Generate filename
          $filename = 'Data_Level_' . date('Y-m-d_H-i-s') . '.xlsx';
- 
-         // Set header untuk download file
+
          header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
          header('Content-Disposition: attachment;filename="' . $filename . '"');
          header('Cache-Control: max-age=0');
@@ -415,11 +393,10 @@ class LevelController extends Controller
      {
          $level = LevelModel::select('level_kode', 'level_nama')
              ->get();
- 
-         // use Barryvdh\DomPDF\Facade\Pdf;
+
          $pdf = Pdf::loadView('level.export_pdf', ['level' => $level]);
 
-         $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
+         $pdf->setPaper('a4', 'portrait'); 
          return $pdf->download('Data_Level_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 }

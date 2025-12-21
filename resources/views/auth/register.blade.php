@@ -23,7 +23,7 @@
      <div class="login-box">
          <!-- /.login-logo -->
          <div class="card card-outline card-primary">
-             <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a></div>
+             <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>Warehouse</a></div>
              <div class="card-body">
                  <p class="login-box-msg">Register a new account</p>
                  <form action="{{ url('register') }}" method="POST" id="form-register">

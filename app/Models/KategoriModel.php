@@ -9,9 +9,9 @@ class KategoriModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_kategori'; // Sesuaikan dengan nama tabel di database
-    protected $primaryKey = 'kategori_id'; // Sesuaikan dengan primary key tabel
-    public $timestamps = false; // Ubah ke true jika tabel punya created_at dan updated_at
+    protected $table = 'm_kategori'; 
+    protected $primaryKey = 'kategori_id'; 
+    public $timestamps = false; 
 
-    protected $fillable = ['kategori_kode', 'kategori_nama']; // Sesuaikan dengan kolom di tabel
+    protected $fillable = ['kategori_kode', 'kategori_nama']; 
 }

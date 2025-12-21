@@ -17,7 +17,7 @@ class BarangSeeder extends Seeder
                 'barang_nama' => 'Onitsuka Pink',
                 'harga_beli' => 3000000,
                 'harga_jual' => 2500000,
-                'stok' => 50, // ✅ TAMBAHKAN STOK
+                'stok' => 50,
             ],
             [
                 'kategori_id' => 2,
@@ -133,9 +133,10 @@ class BarangSeeder extends Seeder
             ]
         ];
         
+        // Insert data barang
         DB::table('m_barang')->insert($data);
         
-        // ✅ Create initial stok history untuk setiap barang
+        // Buat histori stok awal
         $this->createInitialStokHistory();
     }
     
@@ -157,4 +158,5 @@ class BarangSeeder extends Seeder
             ]);
         }
     }
+    
 }

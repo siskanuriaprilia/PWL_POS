@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Foundation\Auth\User as Authenticatable; //implementasi class authenticatable
+use Illuminate\Foundation\Auth\User as Authenticatable; 
 
 class UserModel extends Authenticatable implements JWTSubject
 {
@@ -26,13 +26,11 @@ class UserModel extends Authenticatable implements JWTSubject
     protected $primaryKey = 'user_id';
     protected $fillable = ['username', 'password', 'nama', 'level_id', 'created_at', 'updated_at','profile_picture'];
 
-    protected $hidden = ['password']; // jangan di tampilkan saat select
+    protected $hidden = ['password']; 
 
-    protected $casts = ['password' => 'hashed']; // casting password agar otomatis di hash
+    protected $casts = ['password' => 'hashed']; 
 
-    /**
-     * Relasi ke tabel level
-     */
+
     public function level(): BelongsTo
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
